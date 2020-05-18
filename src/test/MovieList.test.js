@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
-import MovieList from '../MovieList';
+import MovieList from '../MovieList.js';
+import App from '../App'
 
-test('renders learn react link', () => {
-	const appWrapper = shallow(<MovieList />)
-    const childElement = appWrapper.find('li.movie')
-
-    expect(childElement).toBeGreaterThan(1);
+test('renders at least one movie', () => {
+	const greeterWrapper = shallow(<MovieList />)
+	greeterWrapper.update()
+	expect(greeterWrapper.find('li').length).toBeGreaterThanOrEqual(1);
 });
