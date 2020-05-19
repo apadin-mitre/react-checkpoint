@@ -1,32 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'react-bootstrap/Image'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
 class MovieList extends React.Component { 
-	// constructor(props) {
-	// 	super(props);
-	//     this.state = {
-	//       movies: []
-	//     }
-	//   }
-
-	// componentDidMount() {
-	// 	fetch('http://localhost:3001/movies')
-	// 		.then(response => response.json())
-	// 		.then(movies => this.setState({ movies : movies }))
-	// }
-
-	// render() {
-	// 	return (
-	//       <ul>
-	//         {this.state.movies.map(movie => <li key={movie.movieId}><Image src={movie.poster} rounded /></li>)}
-	//       </ul>
-	//     )
-	//   }
 
 	state = {
 	    movies: [],
 	    error: ''
 	  }
+
+	// const show = useState(false);
+	// const setShow = useState(false);
+ //  	const handleClose = () => setShow(false);
+ //  	const handleShow = () => setShow(true);
+
+	handleClick(movie) {
+		console.log(movie)
+  	}
+
 	  async componentDidMount() {
 	    const response = await fetch("http://localhost:3001/movies")
 	    await response.json()
@@ -37,12 +29,16 @@ class MovieList extends React.Component {
 	      })
 	  }
 
+	  /*
+		return (if state not error) ? <></> : ( (if selected) ? <></> : <></> )
+
+	  */
 	  render() {
 	    return this.state.error !== ''
 	      ? (<h1>Unable to load movies</h1>)
-	      : (<ul>
-		        {this.state.movies.map(movie => <li key={movie.movieId}><Image src={movie.poster} rounded /></li>)}
-		      </ul>)
+	      : ( 
+	      	<><ul>{this.state.movies.map(movie => <li key={movie.movieId} ><Image src={movie.poster} rounded/><Button variant="link" onClick={() => this.handleClick(movie)} >More</Button></li>)}</ul></>
+		    )
 	  }
 
 }
